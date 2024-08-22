@@ -1,3 +1,9 @@
 (executable
  (name main)
- (public_name insightdb))
+ (public_name insightdb)
+ (libraries unix))
+
+(executable
+ (name tst)
+ (public_name insightdbtst)
+ (libraries alcotest))
