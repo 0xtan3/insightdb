@@ -76,6 +76,7 @@ yarn-error.log
 test-e2e-re/lib/verdaccio/storage
 .test-esy
 *~
+esy.lock
 
 # script files to automate local testing
 dev.sh

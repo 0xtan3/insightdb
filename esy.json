@@ -8,7 +8,8 @@
       "@opam/dune": "*",
       "ocaml": "5.2.x",
       "@opam/ocaml-lsp-server": "*",
-      "@opam/alcotest": "*"
+      "@opam/alcotest": "*",
+      "@opam/ocamlformat": "*"
     }
   }
   
