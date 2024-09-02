@@ -5,45 +5,44 @@
   managing datastore handles and error handling.
 **)
 
+(* open Unix *)
+
+(* 
+Custom types
+*)
 type key = Key of int
 type key_list = Key_list of key list
 type value = Value of string
 type handle = Handle of int
 
-
+(* 
+type error to handle errors
+*)
 type error =
     | File_not_found
     | Permission_denied
     | Key_not_found
     | Unknown_error of exn
 
+(* 
+This is a result type
+*)
 type 'a res =
-    | Ok of 'a
+    | Ok of 'a 
     | Error of error
 
+val open_ : string -> Unix.dir_handle res
+val get_ : Unix.dir_handle -> key -> value res
+val put_ : Unix.dir_handle -> key -> value -> string res 
+val delete_ : Unix.dir_handle -> key -> string res
+val list_ : Unix.dir_handle -> key_list res
+val merge : string -> string res
+val sync : Unix.dir_handle -> string res 
+val close : Unix.dir_handle -> string res
 
-val create_handle : unit -> handle
-
-val open_dir : string -> handle 
-val get_handle: string -> handle
-val get_value : handle -> key -> value res
-val put_value : handle -> key -> value -> string res 
-val delete_key : handle -> key -> string res
-val list_keys : handle -> key_list res
-val merge_dir : string -> string res
-val sync : handle -> string res 
-val close : handle -> string res
-
-
-module type Handle_sig = sig 
-    type t = handle
-    val pp : Format.formatter -> t -> unit
-    val equal : t -> t -> bool
-end
-
-module Handle: Handle_sig
-
-(*TODO*)
+(*
+TODO
+*)
 (* val fold : *)
 (* bitcask:fold(BitCaskHandle,Fun,Acc0)→ Acc Fold over all K/V pairs in a Bitcask datastore.
 Fun is expected to be of the form: F(K,V,Acc0) → Acc. *)
@@ -52,3 +51,16 @@ Fun is expected to be of the form: F(K,V,Acc0) → Acc. *)
 (* Just like open_dir but with read&write priv. 
    sync_on_put(allows to sync the write file after every write operation). 
    The directory must be readable and writeable by this process *)
+
+(* 
+This is a testable type written to handle ADT in alcotest
+*)
+module type Handle_sig = sig 
+    type t = handle 
+    val pp : Format.formatter -> t -> unit
+    val equal : t -> t -> bool
+end
+
+module Handle: Handle_sig
+
+

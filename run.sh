@@ -30,6 +30,12 @@ run_exec() {
     
 }
 
+# Function to enable watch option while building dune
+watch_build() {
+    echo -e "\n[*] Building with watcher"
+    esy dune build -w
+}
+
 # Main script logic
 case "$1" in
     test)
@@ -41,8 +47,11 @@ case "$1" in
     exec)
         run_exec
         ;;
+    watch)
+        watch_build
+        ;;
     *)
-        echo "Invalid argument. Use 'test', 'setup', or 'exec'."
+        echo "Invalid argument. Use 'test', 'setup', 'exec', 'watch'."
         exit 1
         ;;
 esac
