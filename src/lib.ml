@@ -51,6 +51,9 @@ let create_active_file (dir: string) : string res =
   with
   | ex -> Error (Unknown_error ex)
 
+(* 
+TODO:Needs to be tested 
+*)
 (* let get_actve_files (dir: string) : string res =
   let this_handle = Unix.opendir dir in
   let result = 
@@ -72,6 +75,9 @@ let create_active_file (dir: string) : string res =
   match result with
   | Error File_not_found -> create_active_file dir
   | other -> other    *)
+
+let get_active_files () = failwith "todo"
+
 
 let open_ dir  = 
 (* Open a new or existing datastore for read-only access *)
